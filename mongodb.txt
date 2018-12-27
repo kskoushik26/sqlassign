@@ -1,0 +1,43 @@
+Filter Data
+db.movies_collection.find( {"writer": "Quentin Tarantino" } ).pretty()
+=========================================================
+Data Insert
+db.movies_collection.insert(    { title : 'Fight Club',writer : 'Chuck Palahniuk', year : '1999', actors : 'Brad Pitt Edward Norton'})
+=========================================================
+Data To print All
+db.movies_collection.find( { } ).pretty()
+=========================================================
+Year Comparison
+ db.movies_collection.find( {'year':{$gt:'1989' , $lt:'2000'}} ).pretty()
+=========================================================
+Between
+db.movies_collection.find({$or:[{'year':{$lt:'2000'}} ,{'year': {$gt:'2010'}}] }).pretty()
+=========================================================
+Update and Set
+db.movies_collection.update(
+   { title: "The Hobbit: The Desolation of Smaug"},
+   { $set: { synopsis: "The dwarves, along with Bilbo Baggins and Gandalf the Grey, continue their quest to reclaim Erebor, their homeland, from Smaug. Bilbo Baggins is in possession of a mysterious and magical ring." } }
+);
+
+db.movies_collection.update(
+   { title: "Pulp Fiction"},
+   { $set: { actors : "Samuel L. JacksonJohn ,Travolta Uma Thurman" } }
+);
+=============================================================
+words Contain in para
+db.movies_collection.find({"synopsis" : {$regex : ".*Bilbo.*"}});
+=============================================================
+Create index
+ db.movies_collection.createIndex({"synopsis":"text"});
+===========================================================
+word contain and not contain
+db.movies_collection.find({$text:{$search:"Bilbo-Gandalf"}}).pretty()
+==============================================================
+Or Operator
+db.movies_collection.find({$text:{$search:"Bilbo Gandalf"}}).pretty()
+===============================================================
+And Operator 
+ db.movie.find({$text:{$search:"Bilbo\"Gandalf\""}}).pretty()  
+===============================================================
+Delete Record 
+db.movies_collection.remove({"title":"Pulp Fiction"});
